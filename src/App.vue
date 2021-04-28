@@ -1,32 +1,59 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="todoapp">
+      <header class="header">
+        <h1>todos</h1>
+        <input class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?">
+      </header>
+      <section class="main">
+        <input id="toggle-all" class="toggle-all" type="checkbox">
+        <label for="toggle-all">Mark all as complete</label>
+        <ul class="todo-list">
+          <li class="todo completed">
+            <div class="view">
+              <input class="toggle" type="checkbox">
+              <label>代办 一</label>
+              <button class="destroy"></button>
+            </div>
+            <input class="edit" type="text">
+          </li>
+          <li class="todo editing">
+            <div class="view">
+              <input class="toggle" type="checkbox">
+              <label>代办 二</label>
+              <button class="destroy"></button>
+            </div>
+            <input class="edit" type="text">
+          </li>
+          <li class="todo">
+            <div class="view">
+              <input class="toggle" type="checkbox">
+              <label>代办 三</label>
+              <button class="destroy"></button>
+            </div>
+            <input class="edit" type="text">
+          </li>
+        </ul>
+      </section>
+      <footer class="footer">
+        <span class="todo-count">
+          <strong>3</strong> todo
+        </span>
+        <ul class="filters">
+          <li><a href="#/all" class="selected">All</a></li>
+          <li><a href="#/active">Active</a></li>
+          <li><a href="#/completed">Completed</a></li>
+        </ul>
+        <button class="clear-completed">Clear completed</button>
+      </footer>
     </div>
-    <router-view/>
   </div>
 </template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import '@/assets/base.css'
+import '@/assets/index.css'
+export default{
+  
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+</script>
