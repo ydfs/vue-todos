@@ -5,11 +5,50 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    todos: [{
+      title: '代办一',
+      completed: true
+    }, {
+      title: '代办二',
+      completed: false
+    }],
+    filter: 'all'
   },
   mutations: {
+    changeFilter (state, filter) {
+      state.filter = filter
+    },
+    addTodo (state, todo) {
+      state.todos.push(todo)
+    },
+    removeCompleted (state) {
+      state.todos = state.todos.filter(data => !data.completed)
+    },
+    setAllCompleted (state, status) {
+      state.todos.forEach(data => { data.completed = status })
+    }
   },
-  actions: {
-  },
-  modules: {
+  getters: {
+    todosCount: (state) => {
+      return state.todos.length
+    },
+    hasCompleted: (state) => {
+      return state.todos.some(data => data.completed)
+    },
+    allCompleted: (state) => {
+      return state.todos.every(data => data.completed)
+    },
+    showTodo: (state) => {
+      const filter = state.filter
+      return state.todos.filter(data => {
+        if (filter === 'all') {
+          return true
+        } else if (filter === 'active') {
+          return !data.completed
+        } else if (filter === 'completed') {
+          return data.completed
+        }
+      })
+    }
   }
 })

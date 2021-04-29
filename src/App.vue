@@ -1,59 +1,40 @@
 <template>
   <div id="app">
-    <div class="todoapp">
-      <header class="header">
-        <h1>todos</h1>
-        <input class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?">
-      </header>
-      <section class="main">
-        <input id="toggle-all" class="toggle-all" type="checkbox">
-        <label for="toggle-all">Mark all as complete</label>
-        <ul class="todo-list">
-          <li class="todo completed">
-            <div class="view">
-              <input class="toggle" type="checkbox">
-              <label>代办 一</label>
-              <button class="destroy"></button>
-            </div>
-            <input class="edit" type="text">
-          </li>
-          <li class="todo editing">
-            <div class="view">
-              <input class="toggle" type="checkbox">
-              <label>代办 二</label>
-              <button class="destroy"></button>
-            </div>
-            <input class="edit" type="text">
-          </li>
-          <li class="todo">
-            <div class="view">
-              <input class="toggle" type="checkbox">
-              <label>代办 三</label>
-              <button class="destroy"></button>
-            </div>
-            <input class="edit" type="text">
-          </li>
-        </ul>
-      </section>
-      <footer class="footer">
-        <span class="todo-count">
-          <strong>3</strong> todo
-        </span>
-        <ul class="filters">
-          <li><a href="#/all" class="selected">All</a></li>
-          <li><a href="#/active">Active</a></li>
-          <li><a href="#/completed">Completed</a></li>
-        </ul>
-        <button class="clear-completed">Clear completed</button>
-      </footer>
-    </div>
+    <section class="todoapp" v-cloak>
+      <the-header @add-todo="handleAddTodo"></the-header>
+      <the-list :todos.sync="todos" :filter="filter"></the-list>
+      <the-footer :todos.sync="todos" :filter.sync="filter"></the-footer>
+    </section>
   </div>
 </template>
 
 <script>
-import '@/assets/base.css'
-import '@/assets/index.css'
-export default{
-  
+import '@/assets/todos-html/base.css'
+import '@/assets/todos-html/index.css'
+import TheHeader from '@/components/TheHeader'
+import TheList from '@/components/TheList'
+import TheFooter from '@/components/TheFooter'
+export default {
+  computed: {
+    todos () {
+      return this.$store.state.todos
+    },
+    filter () {
+      return this.$store.state.filter
+    }
+  },
+  methods: {
+    // handleChangeFilter (filter) {
+    //   this.filter = filter
+    // },
+    handleAddTodo (todo) {
+      this.todos.push(todo)
+    }
+  },
+  components: {
+    'the-header': TheHeader,
+    'the-list': TheList,
+    'the-footer': TheFooter
+  }
 }
 </script>
